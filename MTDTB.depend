@@ -1,0 +1,247 @@
+# depslib dependency file v1.0
+1335246490 source:/home/sonal/Kapil/MTDTB/main.cpp
+	<GL/glfw.h>
+	<GL/freeglut.h>
+	<cstdio>
+	<cstdlib>
+	<math.h>
+	<cstring>
+	"vmath.h"
+
+1319795149 /usr/include/GL/glfw.h
+	<OpenGL/gl.h>
+	<OpenGL/glu.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1333106301 /usr/include/GL/gl.h
+	"gl_mangle.h"
+	<stdlib.h>
+	<windows.h>
+	<GL/glext.h>
+
+1333106301 /usr/include/GL/gl_mangle.h
+
+1334880463 /usr/include/stdlib.h
+	<features.h>
+	<stddef.h>
+	<bits/waitflags.h>
+	<bits/waitstatus.h>
+	<xlocale.h>
+	<sys/types.h>
+	<alloca.h>
+	<bits/stdlib.h>
+	<bits/stdlib-ldbl.h>
+
+1334880449 /usr/include/features.h
+	<bits/predefs.h>
+	<sys/cdefs.h>
+	<gnu/stubs.h>
+
+1331149642 /usr/include/bits/predefs.h
+
+1331149662 /usr/include/sys/cdefs.h
+	<features.h>
+	<bits/wordsize.h>
+
+1331149656 /usr/include/bits/wordsize.h
+
+1331149642 /usr/include/gnu/stubs.h
+	<bits/wordsize.h>
+	<gnu/stubs-32.h>
+	<gnu/stubs-64.h>
+
+1331149679 /usr/include/gnu/stubs-64.h
+
+1331149660 /usr/include/bits/waitflags.h
+
+1331149660 /usr/include/bits/waitstatus.h
+	<endian.h>
+
+1331149658 /usr/include/endian.h
+	<features.h>
+	<bits/endian.h>
+	<bits/byteswap.h>
+
+1331149658 /usr/include/bits/endian.h
+
+1331149658 /usr/include/bits/byteswap.h
+	<bits/wordsize.h>
+
+1334880450 /usr/include/xlocale.h
+
+1331149660 /usr/include/sys/types.h
+	<features.h>
+	<bits/types.h>
+	<time.h>
+	<stddef.h>
+	<endian.h>
+	<sys/select.h>
+	<sys/sysmacros.h>
+	<bits/pthreadtypes.h>
+
+1331149660 /usr/include/bits/types.h
+	<features.h>
+	<bits/wordsize.h>
+	<bits/typesizes.h>
+
+1331149660 /usr/include/bits/typesizes.h
+
+1331149659 /usr/include/time.h
+	<features.h>
+	<stddef.h>
+	<bits/time.h>
+	<bits/types.h>
+	<bits/types.h>
+	<bits/types.h>
+	<bits/types.h>
+	<bits/types.h>
+	<xlocale.h>
+
+1331149659 /usr/include/bits/time.h
+	<bits/types.h>
+	<bits/types.h>
+
+1331149662 /usr/include/sys/select.h
+	<features.h>
+	<bits/types.h>
+	<bits/select.h>
+	<bits/sigset.h>
+	<time.h>
+	<bits/time.h>
+
+1331149662 /usr/include/bits/select.h
+	<bits/wordsize.h>
+
+1331149655 /usr/include/bits/sigset.h
+
+1331149660 /usr/include/sys/sysmacros.h
+	<features.h>
+
+1331149660 /usr/include/bits/pthreadtypes.h
+	<bits/wordsize.h>
+
+1334880464 /usr/include/alloca.h
+	<features.h>
+	<stddef.h>
+
+1331149656 /usr/include/bits/stdlib.h
+
+1331149656 /usr/include/bits/stdlib-ldbl.h
+
+1333106301 /usr/include/GL/glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1334880464 /usr/include/inttypes.h
+	<features.h>
+	<stdint.h>
+	<stddef.h>
+
+1334880464 /usr/include/stdint.h
+	<features.h>
+	<bits/wchar.h>
+	<bits/wordsize.h>
+
+1331149658 /usr/include/bits/wchar.h
+
+1333106299 /usr/include/GL/glu.h
+	"glu_mangle.h"
+	<GL/gl.h>
+
+1333106299 /usr/include/GL/glu_mangle.h
+
+1295411706 /usr/include/GL/freeglut.h
+	"freeglut_std.h"
+	"freeglut_ext.h"
+
+1295411706 /usr/include/GL/freeglut_std.h
+	<Windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1295411706 /usr/include/GL/freeglut_ext.h
+
+1334880462 /usr/include/math.h
+	<features.h>
+	<bits/huge_val.h>
+	<bits/huge_valf.h>
+	<bits/huge_vall.h>
+	<bits/inf.h>
+	<bits/nan.h>
+	<bits/mathdef.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls.h>
+	<bits/mathinline.h>
+	<bits/math-finite.h>
+
+1331149654 /usr/include/bits/huge_val.h
+	<endian.h>
+
+1331149654 /usr/include/bits/huge_valf.h
+
+1331149654 /usr/include/bits/huge_vall.h
+
+1331149654 /usr/include/bits/inf.h
+
+1331149654 /usr/include/bits/nan.h
+	<endian.h>
+
+1331149654 /usr/include/bits/mathdef.h
+	<bits/wordsize.h>
+
+1331149654 /usr/include/bits/mathcalls.h
+
+1331149654 /usr/include/bits/mathinline.h
+	<bits/wordsize.h>
+
+1321815748 /home/sonal/Kapil/MTDTB/vmath.h
+	<cmath>
+	<cstring>
+	<iostream>
+	<sstream>
+	<string>
+	<cassert>
+
+1335325179 source:/media/ACER/Ubuntu Home/Kapil/MTDTB/main.cpp
+	<GL/glfw.h>
+	<GL/freeglut.h>
+	<cstdio>
+	<cstdlib>
+	<math.h>
+	<cstring>
+	"vmath.h"
+
+1321815748 /media/ACER/Ubuntu Home/Kapil/MTDTB/vmath.h
+	<cmath>
+	<cstring>
+	<iostream>
+	<sstream>
+	<string>
+	<cassert>
+
+1337774722 source:/home/sonal/Documents/Projects/MTDTB/main.cpp
+	<GL/glfw.h>
+	<GL/freeglut.h>
+	<cstdio>
+	<cstdlib>
+	<math.h>
+	<cstring>
+	"vmath.h"
+
+1321815748 /home/sonal/Documents/Projects/MTDTB/vmath.h
+	<cmath>
+	<cstring>
+	<iostream>
+	<sstream>
+	<string>
+	<cassert>
+
