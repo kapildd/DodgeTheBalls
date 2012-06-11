@@ -1,0 +1,5 @@
+Dodge the Balls is simple game which was my group's first game. It is a fun game where you use mouse to control one of the balls and you keep trying to dodge the others. Your goal is to try it for longest time.
+
+Dodge The Balls uses FreeGLUT (even GLUT will work!) and GLFW libraries.
+FreeGLUT >= 2.6.0-1
+GLFW >= 2.7.2-1
