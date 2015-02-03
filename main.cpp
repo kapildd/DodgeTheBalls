@@ -5,53 +5,35 @@
 #include <math.h>
 #include <cstring>
 #include "vmath.h"
+#include "main.h"
 
+void renderBitmapString(float x, float y, float z, char *string) {
+    char *c;
+    glMatrixMode(GL_PROJECTION);
+    glDisable(GL_LIGHTING);
+    glPushMatrix();
+    glLoadIdentity();
 
-const double wWidth=800,wHeight=600;
-void renderBitmapString(
-		float x,
-		float y,
-		float z,
-		char *string) {
+    gluOrtho2D(0, 400, 0, 300);
+    glScalef(1, -1, 1);
+    glTranslatef(200, -150, 0);
+    glRasterPos3f(x, y,z);
 
-          char *c;
-
-
-          glMatrixMode(GL_PROJECTION);
-        glDisable(GL_LIGHTING);
-          glPushMatrix();
-        glLoadIdentity();
-
-        gluOrtho2D(0, 400, 0, 300);
-        glScalef(1, -1, 1);
-        glTranslatef(200, -150, 0);
-        glRasterPos3f(x, y,z);
-
-
-      //  glutSetColor(1,1,1,1);
-        glMatrixMode(GL_MODELVIEW);
-          for (c=string; *c != '\0'; c++) {
-
-            glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *c);
-            //x  = x  + glutBitmapWidth(GLUT_BITMAP_TIMES_ROMAN_24,*c) + 5;
-
-          }
-
-          glPopMatrix();
-
-        glEnable(GL_LIGHTING);
+    glMatrixMode(GL_MODELVIEW);
+	for (c=string; *c != '\0'; c++) 
+	{
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, *c);
+	}
+	
+    glPopMatrix();
+    glEnable(GL_LIGHTING);
 }
+
 double distance(double x1, double y1, double x2, double y2)
 {
     return sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
 }
 
-
-//Radius and Centers of balls................direction (sign) of velocity and magnitude of velocity
-double rad=18.0,x[5],y[5],sx[5],sy[5],vx[5],vy[5];
-int startTime,endTime;  //calculating the time
-bool start=false,finish=false;   //true when game starts
-bool hitWall=false,checkBound=true; //hitWall for boundary checking and reflection along wall.............and checkBound becomes false when game is over
 void collision2Ds(double& xx1, double& yy1, double& xx2, double& yy2,
                  double& vxx1, double& vyy1, double& vxx2, double& vyy2,double& sxx1, double& syy1, double& sxx2, double& syy2)     {
 
@@ -130,29 +112,28 @@ void checkBoundary()
 {
     if(checkBound==true)
     {
-     for(int i=1;i<5;i++)
-     {
-        if(x[i]>=wWidth/2-rad)
-        {
-                x[i]=wWidth/2-rad;
-                hitWall=true;
-        }if(x[i]<=rad-wWidth/2)
-        {
-                x[i]=rad-wWidth/2;
-                hitWall=true;
-        }
-
-
-        if(y[i]>=wHeight/2-rad)
-        {
-            y[i]=wHeight/2-rad;
-                hitWall=true;
-        }
-        if(y[i]<=rad-wHeight/2)
-        {y[i]=rad-wHeight/2;
-            hitWall=true;
-        }
-    }
+		for(int i=1;i<5;i++)
+		{
+			if(x[i]>=wWidth/2-rad)
+			{
+		        x[i]=wWidth/2-rad;
+		        hitWall=true;
+			}if(x[i]<=rad-wWidth/2)
+			{
+		        x[i]=rad-wWidth/2;
+		        hitWall=true;
+			}
+			if(y[i]>=wHeight/2-rad)
+			{
+			    y[i]=wHeight/2-rad;
+		        hitWall=true;
+			}
+			if(y[i]<=rad-wHeight/2)
+			{
+				y[i]=rad-wHeight/2;
+			    hitWall=true;
+			}
+		}
 
     }
 }
@@ -175,53 +156,25 @@ void dropAll()
 //check the collisions for all combinations of balls
 void checkCollision()
 {
-
-        if(distance(x[1],y[1],x[2],y[2])<=2*rad)
+	for(int i=1;i<=4;i++)
+	for(int j=i+1;j<=4;j++)
+    {
+        if(distance(x[i],y[i],x[j],y[j])<=2*rad)
         {
-                collision2Ds(x[1],y[1],x[2],y[2],vx[1],vy[1],vx[2],vy[2],sx[1],sy[1],sx[2],sy[2]);
-
+                collision2Ds(x[i],y[i],x[j],y[j],vx[i],vy[i],vx[j],vy[j],sx[i],sy[i],sx[j],sy[j]);
         }
+	}
 
-        if(distance(x[2],y[2],x[3],y[3])<=2*rad)
-        {
-                collision2Ds(x[2],y[2],x[3],y[3],vx[2],vy[2],vx[3],vy[3],sx[2],sy[2],sx[3],sy[3]);
-
-        }
-        if(distance(x[1],y[1],x[3],y[3])<=2*rad)
-        {
-                collision2Ds(x[1],y[1],x[3],y[3],vx[1],vy[1],vx[3],vy[3],sx[1],sy[1],sx[3],sy[3]);
-
-        }
-        if(distance(x[1],y[1],x[4],y[4])<=2*rad)
-        {
-                collision2Ds(x[1],y[1],x[4],y[4],vx[1],vy[1],vx[4],vy[4],sx[1],sy[1],sx[4],sy[4]);
-
-        }
-        if(distance(x[4],y[4],x[2],y[2])<=2*rad)
-        {
-                collision2Ds(x[4],y[4],x[2],y[2],vx[4],vy[4],vx[2],vy[2],sx[4],sy[4],sx[2],sy[2]);
-
-        }
-        if(distance(x[4],y[4],x[3],y[3])<=2*rad)
-        {
-                collision2Ds(x[4],y[4],x[3],y[3],vx[4],vy[4],vx[3],vy[3],sx[4],sy[4],sx[3],sy[3]);
-
-        }
-
-
-        //if collision is with ball controlled by mouse then game is over
-        if(distance(x[1],y[1],x[0],-y[0])<=2*rad||
-            distance(x[2],y[2],x[0],-y[0])<=2*rad ||
-            distance(x[3],y[3],x[0],-y[0])<=2*rad ||
-            distance(x[4],y[4],x[0],-y[0])<=2*rad)
-
-        {
-                if(start==true)
-                dropAll();
-
-        }
-
-
+	//if collision is with ball controlled by mouse then game is over
+	if(distance(x[1],y[1],x[0],-y[0])<=2*rad||
+	    distance(x[2],y[2],x[0],-y[0])<=2*rad ||
+	    distance(x[3],y[3],x[0],-y[0])<=2*rad ||
+	    distance(x[4],y[4],x[0],-y[0])<=2*rad)
+	
+	{
+	        if(start==true)
+	        dropAll();	
+	}
 }
 
 //randomize the initial positions.............
@@ -232,35 +185,22 @@ void randomInit()
         sy[3]=1;sx[3]=1;
         sy[4]=-1;sx[4]=-1;
         srand((unsigned)time(0));
-        x[1]=rand()%(int)wWidth-wWidth/2;
-        x[2]=rand()%(int)wWidth-wWidth/2;
-        x[3]=rand()%(int)wWidth-wWidth/2;
-        x[4]=rand()%(int)wWidth-wWidth/2;
-        y[1]=rand()%(int)wHeight-wHeight/2;
-        y[2]=rand()%(int)wHeight-wHeight/2;
-        y[3]=rand()%(int)wHeight-wHeight/2;
-        y[4]=rand()%(int)wHeight-wHeight/2;
-
-        for(int i=1;i<5;i++)
-        {if(x[i]<0)
-        x[i]+=rad;
-        else
-        x[i]-=rad;
-        if(y[i]<0)
-        y[i]+=rad;
-        else
-        y[i]-=rad;
+        for(int i=1;i<=4;i++)
+		{
+			x[i]=rand()%(int)wWidth-wWidth/2;
+        	y[i]=rand()%(int)wHeight-wHeight/2;
+    	}
+        for(int i=1;i<=4;i++)
+        {
+			x[i]+= (x[i]<0)?rad:-rad;
+	        y[i]+= (y[i]<0)?rad:-rad;
         }
         checkCollision();
-        vx[1]=(double)(rand()%15)/6;
-        vx[2]=(double)(rand()%15)/6;
-        vx[3]=(double)(rand()%15)/6;
-        vy[1]=(double)(rand()%15)/6;
-        vy[2]=(double)(rand()%15)/6;
-        vy[3]=(double)(rand()%15)/6;
-        vx[4]=(double)(rand()%15)/6;
-        vy[4]=(double)(rand()%15)/6;
-
+        for(int i=1;i<=4;i++)
+        {
+			vx[i]=(double)(rand()%15)/6;
+	        vy[i]=(double)(rand()%15)/6;
+		}
 
 }
 void display(void)
@@ -277,28 +217,29 @@ void display(void)
     glColor3d(1,0,0);
     //Your ball...............the one controlled with mouse
     glPushMatrix();
-        glTranslated(x[0],-y[0],0.0);
-        glutSolidSphere(rad,30,30);
+    glTranslated(x[0],-y[0],0.0);
+    glutSolidSphere(rad,30,30);
     glPopMatrix();
     //Other balls
     glColor3f(1.0,1.0,0.0);
 
     for(int i=1;i<5;i++)
-    {glPushMatrix();
+    {
+		glPushMatrix();
         glTranslated(x[i],y[i],0.0);
         glutSolidSphere(rad,30,30);
-    glPopMatrix();
+    	glPopMatrix();
     }
     //if the game was not started
     if(!start&&!finish)
-        {
-            glColor3f(0.0,1.0,1.0);
-            renderBitmapString(-50,0,0,"Press ENTER or S to start:");
-        }
+    {
+        glColor3f(0.0,1.0,1.0);
+        renderBitmapString(-50,0,0,"Press ENTER or S to start:");
+    }
     //if game was started then change the position
-    if(start){
-        //if game was finished display the time
-    if(finish)
+    if(start)
+	{//if game was finished display the time
+    	if(finish)
         {
 
 
@@ -316,36 +257,29 @@ void display(void)
                 renderBitmapString(-40,20,0,retry);
 
         }
-    //Move the random balls to next position by checking collisions with other balls and wall
-    checkCollision();
-    checkBoundary();
-    //try to maintain velocity of balls
-    for(int i=1;i<4;i++)
-    checkVel(vx[i],vy[i]);
-
-    //if ball was hit to the boundary...........change the velocity direction of corresponding component
-   if(hitWall==true)
-    {
-            if(x[1]>=wWidth/2-rad||x[1]<=rad-wWidth/2)
-            sx[1]=-sx[1];
-            if(y[1]>=wHeight/2-rad||y[1]<=rad-wHeight/2)
-            sy[1]=-sy[1];
-            if(x[2]>=wWidth/2-rad||x[2]<=rad-wWidth/2)
-            sx[2]=-sx[2];
-            if(y[2]>=wHeight/2-rad||y[2]<=rad-wHeight/2)
-            sy[2]=-sy[2];
-            if(x[3]>=wWidth/2-rad||x[3]<=rad-wWidth/2)
-            sx[3]=-sx[3];
-            if(y[3]>=wHeight/2-rad||y[3]<=rad-wHeight/2)
-            sy[3]=-sy[3];
-            if(x[4]>=wWidth/2-rad||x[4]<=rad-wWidth/2)
-            sx[4]=-sx[4];
-            if(y[4]>=wHeight/2-rad||y[4]<=rad-wHeight/2)
-            sy[4]=-sy[4];
-            hitWall=false;
-    }
-    for(int i=1;i<5;i++)
-    {x[i]=x[i]+vx[i]*sx[i];y[i]=y[i]+vy[i]*sy[i];}
+	    //Move the random balls to next position by checking collisions with other balls and wall
+	    checkCollision();
+	    checkBoundary();
+	    //try to maintain velocity of balls
+	    for(int i=1;i<4;i++)
+	    checkVel(vx[i],vy[i]);
+	
+	    //if ball was hit to the boundary...........change the velocity direction of corresponding component
+	   if(hitWall==true)
+	    {
+	    	for(int i = 1; i<=4; i++)
+	        {
+	        	if(x[i]>=wWidth/2-rad||x[i]<=rad-wWidth/2)
+	            sx[i]=-sx[i];
+	            if(y[i]>=wHeight/2-rad||y[i]<=rad-wHeight/2)
+	            sy[i]=-sy[i];
+	            hitWall=false;
+	        }
+	    }
+	    for(int i=1;i<5;i++)
+	    {
+			x[i]=x[i]+vx[i]*sx[i];y[i]=y[i]+vy[i]*sy[i];
+		}
     }
 
     glFlush();
@@ -440,9 +374,6 @@ int main(int argc, char *argv[])
 
         glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
         glClear( GL_COLOR_BUFFER_BIT );
-
-       // glfwGetMousePos(&xpos,&ypos);
-       // x[0]=xpos-wWidth/2;y[0]=ypos-wHeight/2;
 
         if((glfwGetKey(GLFW_KEY_ENTER)||glfwGetKey('S'))&&!start)
         {
