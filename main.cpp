@@ -42,7 +42,6 @@ void collision2Ds(double& xx1, double& yy1, double& xx2, double& yy2,
        Vector2<double> v1(sxx1*vxx1,syy1*vyy1);//velocity of ball 1
        Vector2<double> v2(sxx2*vxx2,syy2*vyy2);//velocity of ball 2
         Vector2<double> posDiff = (p2-p1);//collision line vector
-        Vector2<double> velDiff = (v2-v1);
 
         Vector2<double> posDiffNorm=posDiff;
         posDiffNorm.normalize();//normalized collision line or unit normal line
@@ -98,20 +97,20 @@ void collision2Ds(double& xx1, double& yy1, double& xx2, double& yy2,
 //code to maintain velocity above a certain desired value
 void checkVel(double &vx,double &vy)
 {
-    if(checkBound==true)
-    {
-    srand((unsigned)time(0));
-    if(vx<1.5)
-    vx=(rand()%2+0.5);
-    if(vy<1.5)
-    vy=(rand()%2+0.5);
-    }
+        if(checkBound==true)
+        {
+		srand((unsigned)time(0));
+		if(vx<1.5)
+		vx=(rand()%2+0.5);
+		if(vy<1.5)
+		vy=(rand()%2+0.5);
+	}
 }
 //code for checking boundary collisions
 void checkBoundary()
 {
-    if(checkBound==true)
-    {
+        if(checkBound==true)
+        {
 		for(int i=1;i<5;i++)
 		{
 			if(x[i]>=wWidth/2-rad)
@@ -135,7 +134,7 @@ void checkBoundary()
 			}
 		}
 
-    }
+        }
 }
 
 
@@ -156,13 +155,13 @@ void dropAll()
 //check the collisions for all combinations of balls
 void checkCollision()
 {
-	for(int i=1;i<=4;i++)
+        for(int i=1;i<=4;i++)
 	for(int j=i+1;j<=4;j++)
-    {
-        if(distance(x[i],y[i],x[j],y[j])<=2*rad)
         {
-                collision2Ds(x[i],y[i],x[j],y[j],vx[i],vy[i],vx[j],vy[j],sx[i],sy[i],sx[j],sy[j]);
-        }
+                if(distance(x[i],y[i],x[j],y[j])<=2*rad)
+                {
+                        collision2Ds(x[i],y[i],x[j],y[j],vx[i],vy[i],vx[j],vy[j],sx[i],sy[i],sx[j],sy[j]);
+                }
 	}
 
 	//if collision is with ball controlled by mouse then game is over
@@ -186,21 +185,21 @@ void randomInit()
         sy[4]=-1;sx[4]=-1;
         srand((unsigned)time(0));
         for(int i=1;i<=4;i++)
-		{
-			x[i]=rand()%(int)wWidth-wWidth/2;
+	{
+		x[i]=rand()%(int)wWidth-wWidth/2;
         	y[i]=rand()%(int)wHeight-wHeight/2;
     	}
         for(int i=1;i<=4;i++)
         {
-			x[i]+= (x[i]<0)?rad:-rad;
+		x[i]+= (x[i]<0)?rad:-rad;
 	        y[i]+= (y[i]<0)?rad:-rad;
         }
         checkCollision();
         for(int i=1;i<=4;i++)
         {
-			vx[i]=(double)(rand()%15)/6;
+		vx[i]=(double)(rand()%15)/6;
 	        vy[i]=(double)(rand()%15)/6;
-		}
+	}
 
 }
 void display(void)
@@ -294,17 +293,8 @@ void GLFWCALL getMouse(void *arg)
     {
         glfwGetMousePos(&xpos,&ypos);
         //x[0]=xpos-wWidth/2;y[0]=ypos-wHeight/2;
-        x[0]=(xpos<rad)?xpos+rad-wWidth/2:xpos-(xpos>(wWidth-rad))*rad-wWidth/2;
-        y[0]=(ypos<rad)?ypos+rad-wHeight/2:ypos-(ypos>(wHeight-rad))*rad-wHeight/2;
-        /*if(xpos<rad);
-        x[0]=rad-wWidth/2;
-        if(xpos>-rad+wWidth/2)
-        x[0]=-rad+wWidth/2;
-        if(y[0]<rad-wHeight/2)
-        y[0]=rad-wHeight/2;
-        if(y[0]>-rad+wHeight/2)
-        y[0]=-rad+wHeight/2;
-        */
+        x[0]=(xpos<rad)?(xpos+rad-wWidth/2):(xpos-(xpos>(wWidth-rad))*rad-wWidth/2);
+        y[0]=(ypos<rad)?(ypos+rad-wHeight/2):(ypos-(ypos>(wHeight-rad))*rad-wHeight/2);
     }
 }
 
@@ -327,7 +317,6 @@ int main(int argc, char *argv[])
     randomInit();
     glfwInit();
     glutInit(&argc,argv);
-
 
     if( !glfwOpenWindow( wWidth, wHeight, 0, 0, 0, 0, 0, 0, GLFW_WINDOW ) )
     {
