@@ -12,3 +12,6 @@ DodgeTheBalls: $(OBJ)
 
 $(OBJ): main.cpp main.h vmath.h
 	$(CXX) $(CPPFLAGS) -c main.cpp -o obj/Release/DodgeTheBalls.o
+
+clean:
+	rm -f bin/Release/DodgeTheBalls obj/Release/DodgeTheBalls.o
