@@ -1,6 +1,6 @@
 # Dodge the Balls
-Dodge the Balls is a simple game where you use your mouse to control blue ball and try to dodge other red balls.
+Dodge the Balls is a simple game where you use your mouse to control red ball and try to dodge other yellow balls.
 
 Dodge The Balls uses FreeGLUT (even GLUT will work!) and GLFW libraries.
-FreeGLUT >= 2.6.0-1
-GLFW >= 2.7.2-1
+FreeGLUT >= 3.2.1
+GLFW >= 3.3
