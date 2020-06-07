@@ -1,17 +1,26 @@
-CXX=g++
-CPPFLAGS=-Wall 
-LDLIBS=-lglfw -lm -lGL -lGLU -lglut
+CXX := g++
+CXXFLAGS := -Wall -std=c++11 -O3
+LDLIBS := -lglfw -lm -lGL -lGLU -lglut -lpthread
 
-SRCS=main.cpp
-OBJ=obj/Release/DodgeTheBalls.o
+BIN_DIR := bin
+OBJ_DIR := obj
+SRC_DIR := src
+INCLUDE := -Iinclude
+TARGET ?= Release
+SRC := $(wildcard $(SRC_DIR)/*.cpp)
+OBJECTS := $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(SRC))
 
-all: DodgeTheBalls
+all: $(BIN_DIR)/$(TARGET)/DodgeTheBalls
 
-DodgeTheBalls: $(OBJ)
-	$(CXX) $(CPPFLAGS) -o bin/Release/DodgeTheBalls $(OBJ) $(LDLIBS)
+$(BIN_DIR)/$(TARGET)/DodgeTheBalls: $(OBJECTS)
+	mkdir -p $(BIN_DIR)/$(TARGET)
+	$(CXX) $(CPPFLAGS) $^ -o $@ $(LDLIBS)
 
-$(OBJ): main.cpp main.h vmath.h
-	$(CXX) $(CPPFLAGS) -c main.cpp -o obj/Release/DodgeTheBalls.o
+$(OBJECTS): $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(OBJ_DIR)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@ $(LDLIBS)
 
 clean:
-	rm -f bin/Release/DodgeTheBalls obj/Release/DodgeTheBalls.o
+	rm -rf $(BIN_DIR) $(OBJ_DIR)
+
+.PHONY: all clean
