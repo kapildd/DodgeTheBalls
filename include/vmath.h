@@ -352,6 +352,15 @@ public:
 		return *this;
 	}
 
+	/**
+	 * Dot product of two vectors.
+	 * @param rhs Right hand side argument of binary operator.
+	 */
+	T dotProduct(const Vector2<T>& rhs) const
+	{
+		return x * rhs.x + y * rhs.y;
+	}
+
 	//--------------[ scalar vector operator ]--------------------
 	/**
 	 * Addition operator

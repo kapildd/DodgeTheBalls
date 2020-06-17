@@ -38,49 +38,23 @@ Ball GameUtil::getRandomBall(int radius, int width, int height) {
 }
 
 void GameUtil::calculateCollisionImpact(Ball &a, Ball &b) {
-  int rep = 0;
-  while (distance(a, b) < 2 * BALL_RADIUS && rep++ < 150) {
-    a.center -= a.velocity * 0.1;
-    b.center -= b.velocity * 0.1;
-  }
+  Vector2<double> collisionLine = (b.center - a.center);
+  Vector2<double> collisionLineNormalized = collisionLine;
+  collisionLineNormalized.normalize();
 
-  Vector2<double> ballPositionDiff = (b.center - a.center);
-  Vector2<double> normal = ballPositionDiff;
-  normal.normalize();
+  double aVelocityParallel = a.velocity.dotProduct(collisionLineNormalized);
+  double bVelocityParallel = b.velocity.dotProduct(collisionLineNormalized);
+  double diffVelocity = (bVelocityParallel - aVelocityParallel);
 
-  Vector2<double> tangent; // unit tangent between two balls
-  tangent.x = -normal.y;
-  tangent.y = normal.x;
+  Vector2<double> drift = collisionLineNormalized * diffVelocity;
+  a.velocity += drift;
+  b.velocity -= drift;
 
-  Vector2<double> v1n =
-      a.velocity * normal; // components of velocity of balls along normal
-  Vector2<double> v2n = b.velocity * normal;
-  Vector2<double> v1t =
-      a.velocity * tangent; // components of velocity of balls along tangent
-  Vector2<double> v2t = b.velocity * tangent;
-
-  // swapping the normal components and keeping the tangential components same
-  Vector2<double> newv1n = v2n * normal;
-  Vector2<double> newv2n = v1n * normal;
-  Vector2<double> newv1t = v1t * tangent;
-  Vector2<double> newv2t = v2t * tangent;
-
-  // assign new velocities
-  a.velocity = newv1n + newv1t;
-  b.velocity = newv2n + newv2t;
-
-  // adjust the ball position to avoid sticking of balls in case of intersection
-  // of ball boundaries
-  Vector2<double> adjust =
-      normal * ((a.radius + b.radius) - distance(a, b)) / 2;
-  if (newv1n < 0)
-    a.center += adjust;
-  else
-    a.center -= adjust;
-  if (newv2n < 0)
-    b.center -= adjust;
-  else
-    b.center += adjust;
+  Vector2<double> centerAdjustment;
+  centerAdjustment += collisionLineNormalized * (2 * BALL_RADIUS);
+  centerAdjustment -= collisionLine;
+  a.center -= centerAdjustment;
+  b.center += centerAdjustment;
 }
 
 void GameUtil::renderBitmapString(float x, float y, float z,
